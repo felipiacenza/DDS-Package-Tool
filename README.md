@@ -71,14 +71,14 @@ DDSPackageTool/
 
 ## 5. Project Components
 
-### Frontend
-- **User Interface:** Developed using Swing in Java. The `MainFrame` class manages the graphical interface and user interactions.
+### Overview
+The **DDS Package Tool** is organized into several core components that collectively enable its functionality. Here’s an overview of the main parts:
 
-### Backend
-- **Application Logic:** Implemented in the `MainFrame` class, which handles the logic for adding, removing, and calculating the entered data.
+- **Core Functionality:** The application logic is contained primarily within the `MainFrame` class, which handles user interactions and processes data for package calculations.
+- **User Interface:** The `MainFrame` class also manages the graphical user interface, providing the layout and controls for users to input data, view lists, and execute calculations.
+- **Build System:** The project uses Apache Ant for building and managing dependencies, ensuring that the application can be compiled and packaged consistently.
 
-### Database
-- **No external database is used in this project.** Data is managed in memory using `DefaultListModel` for the lists.
+Each component plays a crucial role in making the application functional and user-friendly.
 
 ## 6. Contributing
 
