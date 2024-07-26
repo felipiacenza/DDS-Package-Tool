@@ -69,6 +69,12 @@ DDSPackageTool/
 - **Clear Data:** Click the **CLEAR** button to empty all lists.
 - **Calculate Packages:** Click the **SEND** button to calculate the distribution of packages and display the result in a dialog box.
 
+
+![image](https://github.com/user-attachments/assets/8b6d63cf-9a2b-4cde-8d78-558a7fbb35b7)
+
+![image](https://github.com/user-attachments/assets/ba7a7def-1b63-41ab-9d38-bc8b15fba07d)
+
+
 ## 5. Project Components
 
 ### Overview
