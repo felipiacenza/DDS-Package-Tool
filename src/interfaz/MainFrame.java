@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package interfaz;
+
+import java.util.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,11 +10,32 @@ package interfaz;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainFrame
-     */
+    private DefaultListModel<String> modelAnfe;
+    private DefaultListModel<String> modelMJ;
+    private DefaultListModel<String> modelEx;
+    private DefaultListModel<String> modelMeta;
+    private DefaultListModel<String> modelCoca;
+    private DefaultListModel<String> modelHero;
+
     public MainFrame() {
         initComponents();
+        // Initialize the models
+        modelAnfe = new DefaultListModel<>();
+        modelMJ = new DefaultListModel<>();
+        modelEx = new DefaultListModel<>();
+        modelMeta = new DefaultListModel<>();
+        modelCoca = new DefaultListModel<>();
+        modelHero = new DefaultListModel<>();
+
+        // Assign the models to the lists
+        listAnfe.setModel(modelAnfe);
+        listMJ.setModel(modelMJ);
+        listEx.setModel(modelEx);
+        listMeta.setModel(modelMeta);
+        listCoca.setModel(modelCoca);
+        listHero.setModel(modelHero);
+
+        txtDato.requestFocusInWindow();
     }
 
     /**
@@ -45,36 +66,46 @@ public class MainFrame extends javax.swing.JFrame {
         listCoca = new javax.swing.JList<>();
         scrollHero = new javax.swing.JScrollPane();
         listHero = new javax.swing.JList<>();
-        jSpinner1 = new javax.swing.JSpinner();
         btnDeleteLast = new javax.swing.JButton();
         btnOK = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        btnSend = new javax.swing.JButton();
+        txtDato = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DDS Package Tool");
 
         btnGroup.add(btnAnf);
         btnAnf.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnAnf.setText("Anfetamina");
+        btnAnf.setSelected(true);
+        btnAnf.setText("Amph...");
+        btnAnf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAnf.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         btnGroup.add(btnMj);
         btnMj.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnMj.setText("Marihuana");
+        btnMj.setText("Marijuana");
+        btnMj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         btnGroup.add(btnEx);
         btnEx.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnEx.setText("Extasis");
+        btnEx.setText("Ecstasy");
+        btnEx.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         btnGroup.add(btnMeta);
         btnMeta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnMeta.setText("Meta Cristal");
+        btnMeta.setText("Crystal Meth");
+        btnMeta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         btnGroup.add(btnCo);
         btnCo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnCo.setText("Cocaína");
+        btnCo.setText("Cocaine");
+        btnCo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         btnGroup.add(btnHero);
         btnHero.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnHero.setText("Heroína");
+        btnHero.setText("Heroin");
+        btnHero.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         listAnfe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,10 +149,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
         scrollHero.setViewportView(listHero);
 
-        jSpinner1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-
         btnDeleteLast.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnDeleteLast.setText("DELETE THE LAST");
+        btnDeleteLast.setText("DELETE SELECTED");
         btnDeleteLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteLastActionPerformed(evt);
@@ -130,160 +159,325 @@ public class MainFrame extends javax.swing.JFrame {
 
         btnOK.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnClear.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         btnClear.setText("CLEAR");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnSend.setText("SEND");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
+
+        txtDato.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtDato.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDatoKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jSpinner1)
-                            .addComponent(btnAnf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(scrollAnfe, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAnf, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(btnMj, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(btnEx, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(btnMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(btnCo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(btnHero, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(scrollMJ, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                        .addGap(0, 4, Short.MAX_VALUE))
-                                    .addComponent(btnMj, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtDato, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                    .addComponent(scrollAnfe, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(scrollEx, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(scrollMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(scrollCoca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(scrollHero, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(scrollMJ, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(scrollEx, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnEx, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnCo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnHero, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(btnOK)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnClear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDeleteLast, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(btnSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(scrollMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(scrollCoca, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(scrollHero, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnDeleteLast, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEx, scrollEx});
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnMj, scrollMJ});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEx)
-                            .addComponent(btnMeta)
-                            .addComponent(btnCo)
-                            .addComponent(btnHero))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(scrollCoca, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollMeta, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollEx)
-                            .addComponent(scrollHero, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAnf)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollAnfe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnMj)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollMJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                    .addComponent(btnAnf)
+                    .addComponent(btnMj)
+                    .addComponent(btnEx)
+                    .addComponent(btnMeta)
+                    .addComponent(btnCo)
+                    .addComponent(btnHero))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollAnfe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollMJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollEx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollMeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollCoca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollHero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnOK))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnOK)
+                    .addComponent(btnSend)
+                    .addComponent(txtDato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDeleteLast)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClear)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addGap(70, 70, 70))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void listAnfeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listAnfeMouseClicked
         btnAnf.doClick();
+        txtDato.requestFocusInWindow();
     }//GEN-LAST:event_listAnfeMouseClicked
 
     private void listMJMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMJMouseClicked
         btnMj.doClick();
+        txtDato.requestFocusInWindow();
     }//GEN-LAST:event_listMJMouseClicked
 
     private void listExMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listExMouseClicked
         btnEx.doClick();
+        txtDato.requestFocusInWindow();
     }//GEN-LAST:event_listExMouseClicked
 
     private void listMetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMetaMouseClicked
         btnMeta.doClick();
+        txtDato.requestFocusInWindow();
     }//GEN-LAST:event_listMetaMouseClicked
 
     private void listCocaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listCocaMouseClicked
         btnCo.doClick();
+        txtDato.requestFocusInWindow();
     }//GEN-LAST:event_listCocaMouseClicked
 
     private void listHeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listHeroMouseClicked
         btnHero.doClick();
+        txtDato.requestFocusInWindow();
     }//GEN-LAST:event_listHeroMouseClicked
 
     private void btnDeleteLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLastActionPerformed
-        // TODO add your handling code here:
+        if (btnAnf.isSelected()) {
+            if (!modelAnfe.isEmpty()) {
+                modelAnfe.removeElementAt(listAnfe.getSelectedIndex());
+            }
+        } else if (btnMj.isSelected()) {
+            if (!modelMJ.isEmpty()) {
+                modelMJ.removeElementAt(listMJ.getSelectedIndex());
+            }
+        } else if (btnEx.isSelected()) {
+            if (!modelEx.isEmpty()) {
+                modelEx.removeElementAt(listEx.getSelectedIndex());
+            }
+        } else if (btnMeta.isSelected()) {
+            if (!modelMeta.isEmpty()) {
+                modelMeta.removeElementAt(listMeta.getSelectedIndex());
+            }
+        } else if (btnCo.isSelected()) {
+            if (!modelCoca.isEmpty()) {
+                modelCoca.removeElementAt(listCoca.getSelectedIndex());
+            }
+        } else if (btnHero.isSelected()) {
+            if (!modelHero.isEmpty()) {
+                modelHero.removeElementAt(listHero.getSelectedIndex());
+            }
+        }
     }//GEN-LAST:event_btnDeleteLastActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtDato.setText("");
+        txtDato.requestFocusInWindow();
+        modelAnfe.clear();
+        modelMJ.clear();
+        modelEx.clear();
+        modelMeta.clear();
+        modelCoca.clear();
+        modelHero.clear();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        String amountString = txtDato.getText();
+        int amount = 0;
+        if (!amountString.equals("")) {
+            amount = Integer.valueOf(txtDato.getText());
+        } else {
+            JOptionPane.showMessageDialog(this, "Please. Enter data", "Error", JOptionPane.ERROR_MESSAGE);
+            txtDato.requestFocusInWindow();
+            return;
+        }
+
+        if (amount <= 0) {
+            JOptionPane.showMessageDialog(this, "The amount must be greater than 0", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        amountString = amount + "";
+        if (btnAnf.isSelected()) {
+            modelAnfe.addElement(amountString);
+        } else if (btnMj.isSelected()) {
+            modelMJ.addElement(amountString);
+        } else if (btnEx.isSelected()) {
+            modelEx.addElement(amountString);
+        } else if (btnMeta.isSelected()) {
+            modelMeta.addElement(amountString);
+        } else if (btnCo.isSelected()) {
+            modelCoca.addElement(amountString);
+        } else if (btnHero.isSelected()) {
+            modelHero.addElement(amountString);
+        }
+
+        txtDato.setText("");
+        txtDato.requestFocusInWindow();
+    }//GEN-LAST:event_btnOKActionPerformed
+
+
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        // Array of available package sizes
+        int[] packageSizes = {1000, 500, 100, 50, 20, 10, 5, 3, 2, 1};
+
+        // Array of list models for each drug
+        DefaultListModel<String>[] models = new DefaultListModel[]{modelAnfe, modelMJ, modelEx, modelMeta, modelCoca, modelHero};
+
+        // StringBuilder to accumulate all results
+        StringBuilder result = new StringBuilder();
+
+        // Process each drug list
+        boolean hasResults = false;
+        for (DefaultListModel<String> model : models) {
+            // Create a map to store the count of packages
+            Map<Integer, Integer> packageCount = new LinkedHashMap<>();
+            for (int packageSize : packageSizes) {
+                packageCount.put(packageSize, 0);
+            }
+
+            // Variable to accumulate the total grams
+            int totalGrams = 0;
+
+            // Iterate through the list items
+            for (int i = 0; i < model.getSize(); i++) {
+                String valueStr = model.getElementAt(i);
+                int quantity = Integer.parseInt(valueStr.replace("g", "").trim());
+                totalGrams += quantity; // Accumulate the total grams
+
+                // Apply specific rules
+                if (quantity == 4) {
+                    packageCount.put(2, packageCount.get(2) + 2);
+                } else if (quantity == 8) {
+                    packageCount.put(5, packageCount.get(5) + 1);
+                    packageCount.put(3, packageCount.get(3) + 1);
+                } else if (quantity == 9) {
+                    packageCount.put(3, packageCount.get(3) + 3);
+                } else {
+                    // Normal division
+                    for (int packageSize : packageSizes) {
+                        if (quantity >= packageSize) {
+                            int numPackages = quantity / packageSize;
+                            quantity -= numPackages * packageSize;
+                            packageCount.put(packageSize, packageCount.get(packageSize) + numPackages);
+                        }
+                    }
+                }
+            }
+
+            // Check if there are packages for this drug
+            boolean hasPackages = false;
+            for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
+                if (entry.getValue() > 0) {
+                    hasPackages = true;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
+            // Add the result for the list to the StringBuilder only if there are packages
+            if (hasPackages) {
+                result.append("Package division for ");
+                if (model == modelAnfe) {
+                    result.append("Amphetamine");
+                } else if (model == modelMJ) {
+                    result.append("Marijuana");
+                } else if (model == modelEx) {
+                    result.append("Ecstasy");
+                } else if (model == modelMeta) {
+                    result.append("Crystal Meth");
+                } else if (model == modelCoca) {
+                    result.append("Cocaine");
+                } else if (model == modelHero) {
+                    result.append("Heroin");
+                }
+
+                result.append(" (Total: ").append(totalGrams).append("g):\n");
+
+                for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
+                    int packageSize = entry.getKey();
+                    int count = entry.getValue();
+                    if (count > 0) {
+                        result.append(count).append(" package(s) of ").append(packageSize).append("g\n");
+                    }
+                }
+
+                result.append("\n"); // Separator between lists
+                hasResults = true;
             }
-        });
-    }
+        }
+
+        // Show the accumulated result only if there are results
+        if (hasResults) {
+            JOptionPane.showMessageDialog(this, result.toString(), "Result", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No results to display.", "Result", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSendActionPerformed
+
+    private void txtDatoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatoKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            btnOKActionPerformed(null); // Llama al método del botón OK
+        }
+    }//GEN-LAST:event_txtDatoKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton btnAnf;
@@ -296,7 +490,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnMeta;
     private javax.swing.JRadioButton btnMj;
     private javax.swing.JButton btnOK;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JButton btnSend;
     private javax.swing.JList<String> listAnfe;
     private javax.swing.JList<String> listCoca;
     private javax.swing.JList<String> listEx;
@@ -309,5 +503,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollHero;
     private javax.swing.JScrollPane scrollMJ;
     private javax.swing.JScrollPane scrollMeta;
+    private javax.swing.JTextField txtDato;
     // End of variables declaration//GEN-END:variables
 }
