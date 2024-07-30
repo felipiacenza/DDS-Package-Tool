@@ -70,9 +70,9 @@ DDSPackageTool/
 - **Calculate Packages:** Click the **SEND** button to calculate the distribution of packages and display the result in a dialog box.
 
 
-![image](https://github.com/user-attachments/assets/8b6d63cf-9a2b-4cde-8d78-558a7fbb35b7)
+![image](https://github.com/user-attachments/assets/d5200ec3-6312-43b7-bcb9-64d891c683a8)
 
-![image](https://github.com/user-attachments/assets/ba7a7def-1b63-41ab-9d38-bc8b15fba07d)
+![image](https://github.com/user-attachments/assets/310df06b-9817-44df-a573-1df17b5306a7)
 
 
 ## 5. Project Components
