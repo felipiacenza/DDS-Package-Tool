@@ -380,13 +380,13 @@ public class MainFrame extends javax.swing.JFrame {
         // Array of available package sizes
         int[] packageSizes = {1000, 500, 100, 50, 20, 10, 5, 3, 2, 1};
 
-        // Array of list models for each drug
+// Array of list models for each drug
         DefaultListModel<String>[] models = new DefaultListModel[]{modelAnfe, modelMJ, modelEx, modelMeta, modelCoca, modelHero};
 
-        // StringBuilder to accumulate all results
+// StringBuilder to accumulate all results
         StringBuilder result = new StringBuilder();
 
-        // Process each drug list
+// Process each drug list
         boolean hasResults = false;
         for (DefaultListModel<String> model : models) {
             // Create a map to store the count of packages
@@ -405,20 +405,25 @@ public class MainFrame extends javax.swing.JFrame {
                 totalGrams += quantity; // Accumulate the total grams
 
                 // Apply specific rules
-                if (quantity == 4) {
-                    packageCount.put(2, packageCount.get(2) + 2);
-                } else if (quantity == 8) {
-                    packageCount.put(5, packageCount.get(5) + 1);
-                    packageCount.put(3, packageCount.get(3) + 1);
-                } else if (quantity == 9) {
-                    packageCount.put(3, packageCount.get(3) + 3);
-                } else {
-                    // Normal division
-                    for (int packageSize : packageSizes) {
-                        if (quantity >= packageSize) {
-                            int numPackages = quantity / packageSize;
-                            quantity -= numPackages * packageSize;
-                            packageCount.put(packageSize, packageCount.get(packageSize) + numPackages);
+                while (quantity > 0) {
+                    if (quantity == 4) {
+                        packageCount.put(2, packageCount.get(2) + 2);
+                        quantity -= 4;
+                    } else if (quantity == 8) {
+                        packageCount.put(5, packageCount.get(5) + 1);
+                        packageCount.put(3, packageCount.get(3) + 1);
+                        quantity -= 8;
+                    } else if (quantity == 9) {
+                        packageCount.put(3, packageCount.get(3) + 3);
+                        quantity -= 9;
+                    } else {
+                        for (int packageSize : packageSizes) {
+                            if (quantity >= packageSize) {
+                                int numPackages = quantity / packageSize;
+                                quantity -= numPackages * packageSize;
+                                packageCount.put(packageSize, packageCount.get(packageSize) + numPackages);
+                                break;
+                            }
                         }
                     }
                 }
@@ -456,7 +461,7 @@ public class MainFrame extends javax.swing.JFrame {
                     int packageSize = entry.getKey();
                     int count = entry.getValue();
                     if (count > 0) {
-                        result.append(count).append(" package(s) of ").append(packageSize).append("g\n");
+                        result.append("Package(s) of ").append(packageSize).append("g: ").append(count).append("\n");
                     }
                 }
 
@@ -465,7 +470,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
 
-        // Show the accumulated result only if there are results
+// Show the accumulated result only if there are results
         if (hasResults) {
             JOptionPane.showMessageDialog(this, result.toString(), "Result", JOptionPane.INFORMATION_MESSAGE);
         } else {
