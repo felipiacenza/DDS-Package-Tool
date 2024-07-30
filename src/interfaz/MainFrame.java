@@ -410,6 +410,9 @@ public class MainFrame extends javax.swing.JFrame {
                     if (quantity == 4) {
                         packageCount.put(2, packageCount.get(2) + 2);
                         quantity -= 4;
+                    } else if (quantity == 6) {
+                        packageCount.put(3, packageCount.get(3) + 2);
+                        quantity -= 6;
                     } else if (quantity == 8) {
                         packageCount.put(5, packageCount.get(5) + 1);
                         packageCount.put(3, packageCount.get(3) + 1);
