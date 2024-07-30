@@ -377,105 +377,105 @@ public class MainFrame extends javax.swing.JFrame {
 
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        // Array of available package sizes
-        int[] packageSizes = {1000, 500, 100, 50, 20, 10, 5, 3, 2, 1};
+// Array of available package sizes
+int[] packageSizes = {1000, 500, 100, 50, 20, 10, 5, 3, 2, 1};
 
 // Array of list models for each drug
-        DefaultListModel<String>[] models = new DefaultListModel[]{modelAnfe, modelMJ, modelEx, modelMeta, modelCoca, modelHero};
+DefaultListModel<String>[] models = new DefaultListModel[]{modelAnfe, modelMJ, modelEx, modelMeta, modelCoca, modelHero};
 
 // StringBuilder to accumulate all results
-        StringBuilder result = new StringBuilder();
+StringBuilder result = new StringBuilder();
 
 // Process each drug list
-        boolean hasResults = false;
-        for (DefaultListModel<String> model : models) {
-            // Create a map to store the count of packages
-            Map<Integer, Integer> packageCount = new LinkedHashMap<>();
-            for (int packageSize : packageSizes) {
-                packageCount.put(packageSize, 0);
-            }
+boolean hasResults = false;
+for (DefaultListModel<String> model : models) {
+    // Create a map to store the count of packages
+    Map<Integer, Integer> packageCount = new LinkedHashMap<>();
+    for (int packageSize : packageSizes) {
+        packageCount.put(packageSize, 0);
+    }
 
-            // Variable to accumulate the total grams
-            int totalGrams = 0;
+    // Variable to accumulate the total grams
+    int totalGrams = 0;
 
-            // Iterate through the list items
-            for (int i = 0; i < model.getSize(); i++) {
-                String valueStr = model.getElementAt(i);
-                int quantity = Integer.parseInt(valueStr.replace("g", "").trim());
-                totalGrams += quantity; // Accumulate the total grams
+    // Iterate through the list items
+    for (int i = 0; i < model.getSize(); i++) {
+        String valueStr = model.getElementAt(i);
+        int quantity = Integer.parseInt(valueStr.replace("g", "").trim());
+        totalGrams += quantity; // Accumulate the total grams
 
-                // Apply specific rules
-                while (quantity > 0) {
-                    if (quantity == 4) {
-                        packageCount.put(2, packageCount.get(2) + 2);
-                        quantity -= 4;
-                    } else if (quantity == 8) {
-                        packageCount.put(5, packageCount.get(5) + 1);
-                        packageCount.put(3, packageCount.get(3) + 1);
-                        quantity -= 8;
-                    } else if (quantity == 9) {
-                        packageCount.put(3, packageCount.get(3) + 3);
-                        quantity -= 9;
-                    } else {
-                        for (int packageSize : packageSizes) {
-                            if (quantity >= packageSize) {
-                                int numPackages = quantity / packageSize;
-                                quantity -= numPackages * packageSize;
-                                packageCount.put(packageSize, packageCount.get(packageSize) + numPackages);
-                                break;
-                            }
-                        }
+        // Apply specific rules
+        while (quantity > 0) {
+            if (quantity == 4) {
+                packageCount.put(2, packageCount.get(2) + 2);
+                quantity -= 4;
+            } else if (quantity == 8) {
+                packageCount.put(5, packageCount.get(5) + 1);
+                packageCount.put(3, packageCount.get(3) + 1);
+                quantity -= 8;
+            } else if (quantity == 9) {
+                packageCount.put(3, packageCount.get(3) + 3);
+                quantity -= 9;
+            } else {
+                for (int packageSize : packageSizes) {
+                    if (quantity >= packageSize) {
+                        int numPackages = quantity / packageSize;
+                        quantity -= numPackages * packageSize;
+                        packageCount.put(packageSize, packageCount.get(packageSize) + numPackages);
+                        break;
                     }
                 }
-            }
-
-            // Check if there are packages for this drug
-            boolean hasPackages = false;
-            for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
-                if (entry.getValue() > 0) {
-                    hasPackages = true;
-                    break;
-                }
-            }
-
-            // Add the result for the list to the StringBuilder only if there are packages
-            if (hasPackages) {
-                result.append("Package division for ");
-                if (model == modelAnfe) {
-                    result.append("Amphetamine");
-                } else if (model == modelMJ) {
-                    result.append("Marijuana");
-                } else if (model == modelEx) {
-                    result.append("Ecstasy");
-                } else if (model == modelMeta) {
-                    result.append("Crystal Meth");
-                } else if (model == modelCoca) {
-                    result.append("Cocaine");
-                } else if (model == modelHero) {
-                    result.append("Heroin");
-                }
-
-                result.append(" (Total: ").append(totalGrams).append("g):\n");
-
-                for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
-                    int packageSize = entry.getKey();
-                    int count = entry.getValue();
-                    if (count > 0) {
-                        result.append("Package(s) of ").append(packageSize).append("g: ").append(count).append("\n");
-                    }
-                }
-
-                result.append("\n"); // Separator between lists
-                hasResults = true;
             }
         }
+    }
+
+    // Check if there are packages for this drug
+    boolean hasPackages = false;
+    for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
+        if (entry.getValue() > 0) {
+            hasPackages = true;
+            break;
+        }
+    }
+
+    // Add the result for the list to the StringBuilder only if there are packages
+    if (hasPackages) {
+        result.append("Package division for ");
+        if (model == modelAnfe) {
+            result.append("Amphetamine");
+        } else if (model == modelMJ) {
+            result.append("Marijuana");
+        } else if (model == modelEx) {
+            result.append("Ecstasy");
+        } else if (model == modelMeta) {
+            result.append("Crystal Meth");
+        } else if (model == modelCoca) {
+            result.append("Cocaine");
+        } else if (model == modelHero) {
+            result.append("Heroin");
+        }
+
+        result.append(" (Total: ").append(totalGrams).append("g):\n");
+
+        for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
+            int packageSize = entry.getKey();
+            int count = entry.getValue();
+            if (count > 0) {
+                result.append("Package(s) of ").append(packageSize).append("g: ").append(count).append("\n");
+            }
+        }
+
+        result.append("\n"); // Separator between lists
+        hasResults = true;
+    }
+}
 
 // Show the accumulated result only if there are results
-        if (hasResults) {
-            JOptionPane.showMessageDialog(this, result.toString(), "Result", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No results to display.", "Result", JOptionPane.INFORMATION_MESSAGE);
-        }
+if (hasResults) {
+    JOptionPane.showMessageDialog(this, result.toString(), "Result", JOptionPane.INFORMATION_MESSAGE);
+} else {
+    JOptionPane.showMessageDialog(this, "No results to display.", "Result", JOptionPane.INFORMATION_MESSAGE);
+}
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void txtDatoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatoKeyPressed
