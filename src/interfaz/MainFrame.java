@@ -1,8 +1,10 @@
 package interfaz;
 
+import java.awt.BorderLayout;
+import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
@@ -10,12 +12,12 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private DefaultListModel<String> modelAnfe;
-    private DefaultListModel<String> modelMJ;
-    private DefaultListModel<String> modelEx;
-    private DefaultListModel<String> modelMeta;
-    private DefaultListModel<String> modelCoca;
-    private DefaultListModel<String> modelHero;
+    private final DefaultListModel<String> modelAnfe;
+    private final DefaultListModel<String> modelMJ;
+    private final DefaultListModel<String> modelEx;
+    private final DefaultListModel<String> modelMeta;
+    private final DefaultListModel<String> modelCoca;
+    private final DefaultListModel<String> modelHero;
 
     public MainFrame() {
         initComponents();
@@ -375,108 +377,141 @@ public class MainFrame extends javax.swing.JFrame {
         txtDato.requestFocusInWindow();
     }//GEN-LAST:event_btnOKActionPerformed
 
-
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-// Array of available package sizes
-int[] packageSizes = {1000, 500, 100, 50, 20, 10, 5, 3, 2, 1};
+        // Array of available package sizes
+        int[] packageSizes = {1000, 500, 100, 50, 20, 10, 5, 3, 2, 1};
 
-// Array of list models for each drug
-DefaultListModel<String>[] models = new DefaultListModel[]{modelAnfe, modelMJ, modelEx, modelMeta, modelCoca, modelHero};
+        // Array of list models for each drug
+        DefaultListModel<String>[] models = new DefaultListModel[]{modelAnfe, modelMJ, modelEx, modelMeta, modelCoca, modelHero};
 
-// StringBuilder to accumulate all results
-StringBuilder result = new StringBuilder();
+        // StringBuilder to accumulate all results
+        StringBuilder result = new StringBuilder();
 
-// Process each drug list
-boolean hasResults = false;
-for (DefaultListModel<String> model : models) {
-    // Create a map to store the count of packages
-    Map<Integer, Integer> packageCount = new LinkedHashMap<>();
-    for (int packageSize : packageSizes) {
-        packageCount.put(packageSize, 0);
-    }
+        // Process each drug list
+        boolean hasResults = false;
+        for (DefaultListModel<String> model : models) {
+            // Create a map to store the count of packages
+            Map<Integer, Integer> packageCount = new LinkedHashMap<>();
+            for (int packageSize : packageSizes) {
+                packageCount.put(packageSize, 0);
+            }
 
-    // Variable to accumulate the total grams
-    int totalGrams = 0;
+            // Variable to accumulate the total grams
+            int totalGrams = 0;
 
-    // Iterate through the list items
-    for (int i = 0; i < model.getSize(); i++) {
-        String valueStr = model.getElementAt(i);
-        int quantity = Integer.parseInt(valueStr.replace("g", "").trim());
-        totalGrams += quantity; // Accumulate the total grams
+            // Iterate through the list items
+            for (int i = 0; i < model.getSize(); i++) {
+                String valueStr = model.getElementAt(i);
+                int quantity = Integer.parseInt(valueStr.replace("g", "").trim());
+                totalGrams += quantity; // Accumulate the total grams
 
-        // Apply specific rules
-        while (quantity > 0) {
-            if (quantity == 4) {
-                packageCount.put(2, packageCount.get(2) + 2);
-                quantity -= 4;
-            } else if (quantity == 8) {
-                packageCount.put(5, packageCount.get(5) + 1);
-                packageCount.put(3, packageCount.get(3) + 1);
-                quantity -= 8;
-            } else if (quantity == 9) {
-                packageCount.put(3, packageCount.get(3) + 3);
-                quantity -= 9;
-            } else {
-                for (int packageSize : packageSizes) {
-                    if (quantity >= packageSize) {
-                        int numPackages = quantity / packageSize;
-                        quantity -= numPackages * packageSize;
-                        packageCount.put(packageSize, packageCount.get(packageSize) + numPackages);
-                        break;
+                // Apply specific rules
+                while (quantity > 0) {
+                    if (quantity == 4) {
+                        packageCount.put(2, packageCount.get(2) + 2);
+                        quantity -= 4;
+                    } else if (quantity == 8) {
+                        packageCount.put(5, packageCount.get(5) + 1);
+                        packageCount.put(3, packageCount.get(3) + 1);
+                        quantity -= 8;
+                    } else if (quantity == 9) {
+                        packageCount.put(3, packageCount.get(3) + 3);
+                        quantity -= 9;
+                    } else {
+                        for (int packageSize : packageSizes) {
+                            if (quantity >= packageSize) {
+                                int numPackages = quantity / packageSize;
+                                quantity -= numPackages * packageSize;
+                                packageCount.put(packageSize, packageCount.get(packageSize) + numPackages);
+                                break;
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
 
-    // Check if there are packages for this drug
-    boolean hasPackages = false;
-    for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
-        if (entry.getValue() > 0) {
-            hasPackages = true;
-            break;
-        }
-    }
+            // Check if there are packages for this drug
+            boolean hasPackages = false;
+            for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
+                if (entry.getValue() > 0) {
+                    hasPackages = true;
+                    break;
+                }
+            }
 
-    // Add the result for the list to the StringBuilder only if there are packages
-    if (hasPackages) {
-        result.append("Package division for ");
-        if (model == modelAnfe) {
-            result.append("Amphetamine");
-        } else if (model == modelMJ) {
-            result.append("Marijuana");
-        } else if (model == modelEx) {
-            result.append("Ecstasy");
-        } else if (model == modelMeta) {
-            result.append("Crystal Meth");
-        } else if (model == modelCoca) {
-            result.append("Cocaine");
-        } else if (model == modelHero) {
-            result.append("Heroin");
-        }
+            // Add the result for the list to the StringBuilder only if there are packages
+            if (hasPackages) {
+                result.append("Package division for ");
+                if (model == modelAnfe) {
+                    result.append("Amphetamine");
+                } else if (model == modelMJ) {
+                    result.append("Marijuana");
+                } else if (model == modelEx) {
+                    result.append("Ecstasy");
+                } else if (model == modelMeta) {
+                    result.append("Crystal Meth");
+                } else if (model == modelCoca) {
+                    result.append("Cocaine");
+                } else if (model == modelHero) {
+                    result.append("Heroin");
+                }
 
-        result.append(" (Total: ").append(totalGrams).append("g):\n");
+                result.append(" (Total: ").append(totalGrams).append("g):\n");
 
-        for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
-            int packageSize = entry.getKey();
-            int count = entry.getValue();
-            if (count > 0) {
-                result.append("Package(s) of ").append(packageSize).append("g: ").append(count).append("\n");
+                for (Map.Entry<Integer, Integer> entry : packageCount.entrySet()) {
+                    int packageSize = entry.getKey();
+                    int count = entry.getValue();
+                    if (count > 0) {
+                        result.append("Package(s) of ").append(packageSize).append("g: ").append(count).append("\n");
+                    }
+                }
+
+                result.append("\n"); // Separator between lists
+                hasResults = true;
             }
         }
 
-        result.append("\n"); // Separator between lists
-        hasResults = true;
-    }
-}
+        // Show the accumulated result only if there are results
+        if (hasResults) {
+            JLabel resultLabel = new JLabel("<html>" + result.toString().replaceAll("\n", "<br/>") + "</html>");
+            resultLabel.setVerticalAlignment(JLabel.TOP);
 
-// Show the accumulated result only if there are results
-if (hasResults) {
-    JOptionPane.showMessageDialog(this, result.toString(), "Result", JOptionPane.INFORMATION_MESSAGE);
-} else {
-    JOptionPane.showMessageDialog(this, "No results to display.", "Result", JOptionPane.INFORMATION_MESSAGE);
-}
+            JButton saveButton = new JButton("Save");
+            saveButton.addActionListener(e -> saveToFile(result.toString()));
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.add(resultLabel, BorderLayout.CENTER);
+            panel.add(saveButton, BorderLayout.SOUTH);
+
+            JOptionPane.showMessageDialog(this, panel, "Result", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No results to display.", "Result", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnSendActionPerformed
+
+    public void saveToFile(String content) {
+        // Crear la carpeta "orders" si no existe
+        File directory = new File("orders");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+        // Generar el nombre del archivo basado en la fecha y hora actuales
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss").format(new Date());
+        String fileName = "orders/" + timeStamp + ".txt";
+
+        // Guardar el contenido en el archivo
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(content);
+            writer.newLine();
+            fileName = fileName.substring(7);
+            JOptionPane.showMessageDialog(this, "Result saved to " + fileName, "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving file: " + e.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     private void txtDatoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDatoKeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
